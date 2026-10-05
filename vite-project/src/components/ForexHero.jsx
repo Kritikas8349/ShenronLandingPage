@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./ForexHero.css";
 
 import heroImg from "../assets/heroImg.png";
@@ -36,6 +36,70 @@ const ForexHero = () => {
         "We accept major credit/debit cards, SEPA/ACH transfers where supported, and crypto payments for certain plans. Payment options are shown at checkout; corporate wire and invoicing are available for institutional clients.",
     },
   ];
+
+  const testimonialSets = [
+    [
+      {
+        name: "James Anderson",
+        role: "Forex Trader",
+        text: "The way the concepts were explained made market structure much easier to understand. I finally have a clear process before entering a trade.",
+        rating: 5
+      },
+      {
+        name: "Michael Carter",
+        role: "Crypto Trader",
+        text: "The sessions helped me understand risk management and stop taking random trades. The practical examples were the most useful part.",
+        rating: 5
+      },
+      {
+        name: "Daniel Williams",
+        role: "Part-Time Trader",
+        text: "I had watched a lot of trading content before, but this gave me a structured approach that I could actually follow.",
+        rating: 5
+      }
+    ],
+    [
+      {
+        name: "Alexander Miller",
+        role: "Forex Trader",
+        text: "The live market breakdowns were extremely helpful. I now understand what to look for instead of entering trades based on emotions.",
+        rating: 5
+      },
+      {
+        name: "Oliver Bennett",
+        role: "Swing Trader",
+        text: "Simple explanations, practical examples and a much better understanding of risk. Definitely improved the way I look at the market.",
+        rating: 5
+      },
+      {
+        name: "Lucas Moreau",
+        role: "Beginner Trader",
+        text: "I was completely confused about where to start. The structured sessions gave me a proper foundation and direction.",
+        rating: 5
+      }
+    ],
+    [
+      {
+        name: "Ethan Wilson",
+        role: "Forex Trader",
+        text: "The biggest difference for me was learning how to wait for confirmation instead of forcing trades. My approach is much more disciplined now.",
+        rating: 5
+      },
+      {
+        name: "Leon Schmidt",
+        role: "Crypto Trader",
+        text: "The concepts were explained without making them unnecessarily complicated. The practical trading examples made everything easier to connect.",
+        rating: 5
+      },
+      {
+        name: "Ryan Mitchell",
+        role: "Market Learner",
+        text: "A very useful learning experience for anyone who wants to understand trading properly instead of chasing quick profits.",
+        rating: 5
+      }
+    ]
+  ];
+  
 
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -127,6 +191,26 @@ const ForexHero = () => {
     "Learn market structure, technical analysis and risk management",
     "Start analyzing markets with a structured trading approach.",
   ];
+
+  const [currentSet, setCurrentSet] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSet((prev) => (prev + 1) % testimonialSets.length);
+    }, 4500);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const nextSet = () => {
+    setCurrentSet((prev) => (prev + 1) % testimonialSets.length);
+  };
+
+  const previousSet = () => {
+    setCurrentSet(
+      (prev) => (prev - 1 + testimonialSets.length) % testimonialSets.length
+    );
+  };
 
 
 
@@ -626,6 +710,91 @@ const ForexHero = () => {
           </div>
         </div>
       </section>
+
+      <section className="testimonials-section">
+      <div className="testimonials-container">
+
+        <div className="testimonials-header">
+          <span className="testimonials-label">
+            TRADER EXPERIENCES
+          </span>
+
+          <h2>
+            Real Traders. <span>Real Experiences.</span>
+          </h2>
+
+          <p>
+            Hear from traders who are building a more structured,
+            disciplined and informed approach to the markets.
+          </p>
+        </div>
+
+        <div className="testimonials-carousel">
+
+          <button
+            className="testimonial-arrow testimonial-arrow-left"
+            onClick={previousSet}
+            aria-label="Previous testimonials"
+          >
+            ‹
+          </button>
+
+          <div className="testimonial-track-wrapper">
+            <div className="testimonial-track" key={currentSet}>
+
+              {testimonialSets[currentSet].map((testimonial, index) => (
+                <div className="testimonial-card" key={index}>
+
+                  <div className="testimonial-stars">
+                    {"★".repeat(testimonial.rating)}
+                  </div>
+
+                  <p className="testimonial-text">
+                    "{testimonial.text}"
+                  </p>
+
+                  <div className="testimonial-person">
+                    <div className="testimonial-avatar">
+                      {testimonial.name.charAt(0)}
+                    </div>
+
+                    <div>
+                      <h4>{testimonial.name}</h4>
+                      <span>{testimonial.role}</span>
+                    </div>
+                  </div>
+
+                </div>
+              ))}
+
+            </div>
+          </div>
+
+          <button
+            className="testimonial-arrow testimonial-arrow-right"
+            onClick={nextSet}
+            aria-label="Next testimonials"
+          >
+            ›
+          </button>
+
+        </div>
+
+        <div className="testimonial-dots">
+          {testimonialSets.map((_, index) => (
+            <button
+              key={index}
+              className={`testimonial-dot ${
+                currentSet === index ? "active" : ""
+              }`}
+              onClick={() => setCurrentSet(index)}
+              aria-label={`Show testimonial set ${index + 1}`}
+            />
+          ))}
+        </div>
+
+      </div>
+    </section>
 
       <footer className="legal-footer">
         <div className="legal-footer-container">
