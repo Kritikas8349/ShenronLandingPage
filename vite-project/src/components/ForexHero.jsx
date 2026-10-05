@@ -680,7 +680,7 @@ const ForexHero = () => {
 
           <button className="final-cta-button">
             <span>♙</span>
-            Reserve My Seat @₹199
+            Reserve My Seat @$199
           </button>
 
           <div className="final-cta-benefits">
