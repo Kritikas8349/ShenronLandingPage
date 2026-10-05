@@ -1,0 +1,787 @@
+/* =========================================================
+   ENQUIRY MODAL OVERLAY
+========================================================= */
+
+.enquiry-modal-overlay {
+  position: fixed;
+  inset: 0;
+
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 16px;
+  box-sizing: border-box;
+
+  background: rgba(0, 0, 0, 0.78);
+
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  z-index: 2147483647;
+
+  /* Important:
+     Overlay itself can scroll if needed on very small screens */
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  overscroll-behavior: contain;
+
+  animation: enquiryOverlayIn 0.2s ease forwards;
+}
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+.enquiry-modal {
+  position: relative;
+
+  width: 100%;
+  max-width: 600px;
+
+  /*
+    Keep modal inside viewport,
+    but allow internal scrolling.
+  */
+  max-height: calc(100dvh - 32px);
+
+  box-sizing: border-box;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  padding: 28px 34px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #2b0d3a 0%,
+      #160a20 50%,
+      #08050f 100%
+    );
+
+  color: #ffffff;
+
+  border: 1px solid rgba(255, 255, 255, 0.18);
+
+  border-radius: 24px;
+
+  box-shadow:
+    0 30px 100px rgba(0, 0, 0, 0.85),
+    0 0 70px rgba(100, 45, 150, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+
+  z-index: 1;
+
+  animation: enquiryModalIn 0.25s ease forwards;
+
+  /*
+    Smooth scrolling inside modal
+  */
+  overscroll-behavior: contain;
+
+  scrollbar-width: thin;
+  scrollbar-color: rgba(212, 173, 82, 0.45) transparent;
+}
+
+
+/* =========================================================
+   MODAL SCROLLBAR
+========================================================= */
+
+.enquiry-modal::-webkit-scrollbar {
+  width: 5px;
+}
+
+.enquiry-modal::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.enquiry-modal::-webkit-scrollbar-thumb {
+  background: rgba(212, 173, 82, 0.45);
+  border-radius: 999px;
+}
+
+.enquiry-modal::-webkit-scrollbar-thumb:hover {
+  background: rgba(212, 173, 82, 0.7);
+}
+
+
+/* =========================================================
+   CLOSE BUTTON
+========================================================= */
+
+.enquiry-close {
+  position: absolute;
+
+  top: 13px;
+  right: 13px;
+
+  width: 32px;
+  height: 32px;
+
+  padding: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid rgba(255, 255, 255, 0.15);
+
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.08);
+
+  color: rgba(255, 255, 255, 0.8);
+
+  font-size: 12px;
+
+  cursor: pointer;
+
+  z-index: 10;
+
+  transition: all 0.2s ease;
+}
+
+.enquiry-close:hover {
+  background: rgba(255, 255, 255, 0.16);
+
+  color: #ffffff;
+
+  transform: rotate(90deg);
+}
+
+.enquiry-close:active {
+  transform: rotate(90deg) scale(0.95);
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.enquiry-modal-header {
+  margin-bottom: 16px;
+
+  padding-right: 35px;
+}
+
+.enquiry-modal-header > span {
+  display: block;
+
+  margin-bottom: 5px;
+
+  color: #d5ae5a;
+
+  font-size: 9px;
+
+  font-weight: 700;
+
+  letter-spacing: 2px;
+
+  text-transform: uppercase;
+}
+
+.enquiry-modal-header h2 {
+  margin: 5px 0 7px;
+
+  color: #ffffff;
+
+  font-size: 25px;
+
+  line-height: 1.12;
+
+  font-weight: 500;
+}
+
+.enquiry-modal-header h2 strong {
+  color: #e2c16d;
+
+  font-weight: 700;
+}
+
+.enquiry-modal-header p {
+  margin: 0;
+
+  color: rgba(255, 255, 255, 0.55);
+
+  font-size: 10px;
+
+  line-height: 1.5;
+}
+
+
+/* =========================================================
+   FORM
+========================================================= */
+
+.enquiry-modal-form {
+  width: 100%;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 9px;
+}
+
+
+/* =========================================================
+   FORM GROUP
+========================================================= */
+
+.form-group {
+  width: 100%;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 3px;
+}
+
+.form-group label {
+  color: rgba(255, 255, 255, 0.82);
+
+  font-size: 9px;
+
+  font-weight: 600;
+
+  line-height: 1.3;
+
+  cursor: pointer;
+}
+
+.form-group label span {
+  color: #d5ae5a;
+
+  margin-left: 2px;
+}
+
+
+/* =========================================================
+   INPUT WRAPPER
+========================================================= */
+
+.input-wrapper {
+  width: 100%;
+
+  height: 40px;
+
+  box-sizing: border-box;
+
+  padding: 0 12px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 9px;
+
+  border: 1px solid rgba(255, 255, 255, 0.13);
+
+  border-radius: 9px;
+
+  background: rgba(0, 0, 0, 0.3);
+
+  transition: all 0.2s ease;
+}
+
+.input-wrapper svg {
+  flex-shrink: 0;
+
+  color: #d4ad52;
+
+  font-size: 11px;
+}
+
+.input-wrapper:focus-within {
+  border-color: rgba(212, 173, 82, 0.8);
+
+  box-shadow:
+    0 0 15px rgba(212, 173, 82, 0.08);
+}
+
+.input-wrapper input {
+  width: 100%;
+
+  height: 100%;
+
+  min-width: 0;
+
+  padding: 0;
+
+  border: none;
+
+  outline: none;
+
+  background: transparent;
+
+  color: #ffffff;
+
+  font-family: inherit;
+
+  font-size: 11px;
+}
+
+.input-wrapper input::placeholder {
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.input-wrapper input:focus {
+  outline: none;
+}
+
+
+/* =========================================================
+   SELECT
+========================================================= */
+
+.form-group select {
+  width: 100%;
+
+  height: 40px;
+
+  box-sizing: border-box;
+
+  padding: 0 12px;
+
+  border: 1px solid rgba(255, 255, 255, 0.13);
+
+  border-radius: 9px;
+
+  outline: none;
+
+  background: #160a20;
+
+  color: #ffffff;
+
+  font-family: inherit;
+
+  font-size: 11px;
+
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+}
+
+.form-group select:focus {
+  border-color: rgba(212, 173, 82, 0.8);
+
+  box-shadow:
+    0 0 15px rgba(212, 173, 82, 0.08);
+}
+
+.form-group select option {
+  background: #160a20;
+
+  color: #ffffff;
+}
+
+
+/* =========================================================
+   SUBMIT BUTTON
+========================================================= */
+
+.enquiry-submit {
+  width: 100%;
+
+  height: 42px;
+
+  margin-top: 3px;
+
+  padding: 0 20px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 8px;
+
+  border: 1px solid rgba(201, 164, 76, 0.8);
+
+  border-radius: 999px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #080806,
+      #1b160a,
+      #080806
+    );
+
+  color: #f2d58b;
+
+  font-family: inherit;
+
+  font-size: 11px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: all 0.25s ease;
+}
+
+.enquiry-submit:hover {
+  transform: translateY(-1px);
+
+  border-color: #e7c76e;
+
+  box-shadow:
+    0 7px 25px rgba(202, 164, 76, 0.2);
+}
+
+.enquiry-submit:active {
+  transform: translateY(0);
+}
+
+.enquiry-submit:disabled {
+  opacity: 0.6;
+
+  cursor: not-allowed;
+
+  transform: none;
+
+  box-shadow: none;
+}
+
+
+/* =========================================================
+   ERROR
+========================================================= */
+
+.form-error {
+  padding: 7px 10px;
+
+  border: 1px solid rgba(255, 80, 80, 0.25);
+
+  border-radius: 7px;
+
+  background: rgba(255, 60, 60, 0.08);
+
+  color: #ff9b9b;
+
+  font-size: 9px;
+
+  line-height: 1.4;
+}
+
+
+/* =========================================================
+   DISCLAIMER
+========================================================= */
+
+.form-disclaimer {
+  margin: 0;
+
+  color: rgba(255, 255, 255, 0.32);
+
+  font-size: 7px;
+
+  line-height: 1.4;
+
+  text-align: center;
+}
+
+
+/* =========================================================
+   SUCCESS
+========================================================= */
+
+.enquiry-success {
+  padding: 35px 15px 20px;
+
+  text-align: center;
+}
+
+.enquiry-success > svg {
+  margin-bottom: 12px;
+
+  color: #d5ae5a;
+
+  font-size: 44px;
+}
+
+.enquiry-success h2 {
+  margin: 0 0 8px;
+
+  color: #ffffff;
+
+  font-size: 26px;
+}
+
+.enquiry-success p {
+  max-width: 350px;
+
+  margin: 0 auto 20px;
+
+  color: rgba(255, 255, 255, 0.55);
+
+  font-size: 11px;
+
+  line-height: 1.6;
+}
+
+
+/* =========================================================
+   SUCCESS BUTTON
+========================================================= */
+
+.success-button {
+  padding: 10px 23px;
+
+  border: 1px solid rgba(201, 164, 76, 0.7);
+
+  border-radius: 999px;
+
+  background: #090806;
+
+  color: #e6c875;
+
+  font-family: inherit;
+
+  font-size: 10px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+}
+
+.success-button:hover {
+  background: #15120c;
+
+  border-color: #e6c875;
+
+  transform: translateY(-1px);
+}
+
+.success-button:active {
+  transform: translateY(0);
+}
+
+
+/* =========================================================
+   ANIMATIONS
+========================================================= */
+
+@keyframes enquiryOverlayIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes enquiryModalIn {
+  from {
+    opacity: 0;
+
+    transform:
+      translateY(15px)
+      scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateY(0)
+      scale(1);
+  }
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 768px) {
+
+  .enquiry-modal {
+    max-width: 560px;
+
+    padding: 24px 26px;
+  }
+
+  .enquiry-modal-header {
+    margin-bottom: 13px;
+  }
+
+  .enquiry-modal-header h2 {
+    font-size: 23px;
+  }
+
+  .enquiry-modal-form {
+    gap: 8px;
+  }
+
+  .input-wrapper,
+  .form-group select {
+    height: 39px;
+  }
+
+  .enquiry-submit {
+    height: 41px;
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+  .enquiry-modal-overlay {
+    padding: 10px;
+  }
+
+  .enquiry-modal {
+    width: 100%;
+
+    max-width: 500px;
+
+    max-height: calc(100dvh - 20px);
+
+    padding: 21px 18px;
+
+    border-radius: 20px;
+  }
+
+  .enquiry-close {
+    top: 9px;
+
+    right: 9px;
+
+    width: 29px;
+
+    height: 29px;
+  }
+
+  .enquiry-modal-header {
+    padding-right: 32px;
+
+    margin-bottom: 11px;
+  }
+
+  .enquiry-modal-header > span {
+    font-size: 8px;
+  }
+
+  .enquiry-modal-header h2 {
+    font-size: 20px;
+
+    margin: 4px 0 5px;
+  }
+
+  .enquiry-modal-header p {
+    font-size: 9px;
+  }
+
+  .enquiry-modal-form {
+    gap: 7px;
+  }
+
+  .form-group {
+    gap: 2px;
+  }
+
+  .form-group label {
+    font-size: 8px;
+  }
+
+  .input-wrapper,
+  .form-group select {
+    height: 37px;
+
+    font-size: 10px;
+  }
+
+  .input-wrapper input {
+    font-size: 10px;
+  }
+
+  .enquiry-submit {
+    height: 39px;
+
+    font-size: 10px;
+  }
+
+  .form-disclaimer {
+    font-size: 6.5px;
+  }
+
+  .enquiry-success {
+    padding: 30px 10px 15px;
+  }
+
+  .enquiry-success > svg {
+    font-size: 38px;
+  }
+
+  .enquiry-success h2 {
+    font-size: 22px;
+  }
+
+  .enquiry-success p {
+    font-size: 10px;
+  }
+}
+
+
+/* =========================================================
+   VERY SMALL MOBILE
+========================================================= */
+
+@media (max-width: 380px) {
+
+  .enquiry-modal-overlay {
+    padding: 6px;
+  }
+
+  .enquiry-modal {
+    max-height: calc(100dvh - 12px);
+
+    padding: 17px 13px;
+
+    border-radius: 17px;
+  }
+
+  .enquiry-modal-header h2 {
+    font-size: 18px;
+  }
+
+  .enquiry-modal-form {
+    gap: 6px;
+  }
+
+  .input-wrapper,
+  .form-group select {
+    height: 35px;
+  }
+
+  .enquiry-submit {
+    height: 38px;
+  }
+
+  .enquiry-success h2 {
+    font-size: 20px;
+  }
+
+  .enquiry-success p {
+    font-size: 9px;
+  }
+}

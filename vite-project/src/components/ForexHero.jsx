@@ -1,14 +1,36 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import {
+  FaChartLine,
+  FaBolt,
+  FaRobot,
+  FaShieldAlt,
+  FaHeadset,
+  FaGraduationCap,
+} from "react-icons/fa";
 import "./ForexHero.css";
 
+
+import heroImg1 from "../assets/heroImg1.png";
 import heroImg from "../assets/heroImg.png";
+
 import avatar1 from "../assets/avatar1.png";
 import avatar2 from "../assets/avatar2.png";
 import avatar3 from "../assets/avatar3.png";
 import avatar4 from "../assets/avatar4.png";
+
+
+import logo from "../assets/shenron-logo.png";
 // import videoThumbnail from "../assets/videoThumbnail.png";
 
-const ForexHero = () => {
+const ForexHero = ({ onEnquiry }) => {
+  const handleEnquiryClick = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+  
+    onEnquiry();
+  };
+
+
   const faqData = [
     {
       question: "What’s the minimum I can start with?",
@@ -99,7 +121,7 @@ const ForexHero = () => {
       }
     ]
   ];
-  
+
 
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -183,13 +205,43 @@ const ForexHero = () => {
   ];
 
 
-  const steps = [
-    "Register securely for the trading masterclass @$199",
-    "Get instant confirmation on WhatsApp and Email",
-    "Join the exclusive trading community",
-    "Receive your live session and Zoom links",
-    "Learn market structure, technical analysis and risk management",
-    "Start analyzing markets with a structured trading approach.",
+  const offers = [
+    {
+      icon: <FaChartLine />,
+      title: "Multi-Asset Trading",
+      description:
+        "Trade Forex, Crypto, Commodities & Global Indices in one secure platform.",
+    },
+    {
+      icon: <FaBolt />,
+      title: "Lightning-Fast Execution",
+      description:
+        "Ultra-low latency execution ensures you never miss profitable market opportunities.",
+    },
+    {
+      icon: <FaRobot />,
+      title: "Advanced Trading Tools",
+      description:
+        "AI trading signals, analytics & automated strategy execution for smarter trading.",
+    },
+    {
+      icon: <FaShieldAlt />,
+      title: "High Liquidity & Security",
+      description:
+        "Encrypted & insured transactions backed by institutional-grade liquidity.",
+    },
+    {
+      icon: <FaHeadset />,
+      title: "24/7 Customer Support",
+      description:
+        "Dedicated support team ready to help anytime — because markets never sleep.",
+    },
+    {
+      icon: <FaGraduationCap />,
+      title: "Learn & Grow Program",
+      description:
+        "Webinars, tutorials & demo trading designed to help traders master the markets.",
+    },
   ];
 
   const [currentSet, setCurrentSet] = useState(0);
@@ -212,14 +264,38 @@ const ForexHero = () => {
     );
   };
 
+  const sectionRef = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      {
+        threshold: 0.15,
+      }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+
 
 
   return (
     <>
       <section
-        className="forex-hero"
+        className="forex-hero" id="home"
         style={{
-          backgroundImage: `url(${heroImg})`,
+          backgroundImage: `url(${heroImg1})`,
         }}
       >
         {/* Dark overlay */}
@@ -306,10 +382,14 @@ const ForexHero = () => {
 
 
             {/* CTA */}
-            <button className="forex-cta">
-              <span>♙</span>
-              Lock My Seat Before It's Gone @$199
-            </button>
+            <button
+  type="button"
+  className="forex-cta"
+  onClick={handleEnquiryClick}
+>
+  <span>♙</span>
+  Lock My Seat Before It's Gone @$199
+</button>
 
           </div>
 
@@ -383,7 +463,7 @@ const ForexHero = () => {
 
       </section>
 
-      <section className="market-curriculum">
+      <section className="market-curriculum" id="curriculum">
         <div className="curriculum-glow"></div>
 
         <div className="curriculum-container">
@@ -445,10 +525,14 @@ const ForexHero = () => {
 
           {/* CTA */}
           <div className="curriculum-cta-wrapper">
-            <button className="curriculum-cta">
-              <span className="cta-icon">♙</span>
-              Reserve Your Masterclass Seat @$199
-            </button>
+          <button
+  type="button"
+  className="curriculum-cta"
+  onClick={handleEnquiryClick}
+>
+  <span className="cta-icon">♙</span>
+  Reserve Your Masterclass Seat @$199
+</button>
 
             <p className="curriculum-note">
               Instant access <span>•</span> Secure checkout
@@ -458,7 +542,7 @@ const ForexHero = () => {
         </div>
       </section>
 
-      <section className="complete-package">
+      <section className="complete-package" id="package">
         <div className="package-glow package-glow-left"></div>
         <div className="package-glow package-glow-right"></div>
 
@@ -510,14 +594,13 @@ const ForexHero = () => {
                   ))}
                 </ul>
 
-                <a
-                  href="https://shenronglobal.com/contact"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="package-card-button"
-                >
-                  Apply Now
-                </a>
+                <button
+  type="button"
+  className="package-card-button"
+  onClick={handleEnquiryClick}
+>
+  Apply Now
+</button>
 
               </div>
             ))}
@@ -552,15 +635,14 @@ const ForexHero = () => {
 
           {/* CTA */}
           <div className="package-cta-wrapper">
-            <a
-              href="https://shenronglobal.com/contact"
-              target="_blank"
-              rel="noopener noreferrer"
+            <button
+              type="button"
               className="package-cta"
+              onClick={onEnquiry}
             >
               <span>♙</span>
               Apply for Mentorship
-            </a>
+            </button>
 
             <p className="package-note">
               Compare your options <span>•</span> Choose your track
@@ -570,45 +652,53 @@ const ForexHero = () => {
         </div>
       </section>
 
-      <section className="next-steps">
+      <section id="offers"
+        ref={sectionRef}
+        className={`next-steps ${isVisible ? "is-visible" : ""}`}
+      >
         <div className="next-steps-glow"></div>
 
         <div className="next-steps-container">
           <div className="next-steps-header">
-            <span className="next-steps-label">THE NEXT STEPS</span>
+            <span className="next-steps-label">WHAT WE OFFER</span>
 
             <h2>
-              Here's What Happens After You
+              Trade Smarter.
               <br />
-              Register
+              <span>Grow With Confidence.</span>
             </h2>
 
-            <p>Simple, instant and fully guided.</p>
+            <p>
+              Everything you need to trade, analyze and build better market
+              strategies in one place.
+            </p>
           </div>
 
-          <div className="steps-timeline">
-            {steps.map((step, index) => (
-              <div className="step-item" key={index}>
-                <div className="step-number">
-                  {index + 1}
+          <div className="offers-grid">
+            {offers.map((offer, index) => (
+              <div
+                className="offer-card"
+                key={index}
+                style={{ "--delay": `${index * 0.1}s` }}
+              >
+                <div className="offer-icon">
+                  {offer.icon}
                 </div>
 
-                <div className="step-content">
-                  <span className={index === steps.length - 1 ? "step-highlight" : ""}>
-                    {step}
-                  </span>
+                <div className="offer-content">
+                  <h3>{offer.title}</h3>
+
+                  <p>{offer.description}</p>
                 </div>
 
-                {index < steps.length - 1 && (
-                  <div className="step-line"></div>
-                )}
+                <div className="offer-arrow">↗</div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="faq-section">
+      <section className="faq-section" id="faq">
         <div className="faq-glow"></div>
 
         <div className="faq-container">
@@ -678,10 +768,14 @@ const ForexHero = () => {
             Learn the system. Build discipline. Trade with confidence.
           </p>
 
-          <button className="final-cta-button">
-            <span>♙</span>
-            Reserve My Seat @$199
-          </button>
+          <button
+  type="button"
+  className="final-cta-button"
+  onClick={handleEnquiryClick}
+>
+  <span>♙</span>
+  Reserve My Seat @$199
+</button>
 
           <div className="final-cta-benefits">
             <div className="final-benefit">
@@ -711,153 +805,256 @@ const ForexHero = () => {
         </div>
       </section>
 
-      <section className="testimonials-section">
-      <div className="testimonials-container">
+      <section className="testimonials-section" id="testimonials">
+        <div className="testimonials-container">
 
-        <div className="testimonials-header">
-          <span className="testimonials-label">
-            TRADER EXPERIENCES
-          </span>
+          <div className="testimonials-header">
+            <span className="testimonials-label">
+              TRADER EXPERIENCES
+            </span>
 
-          <h2>
-            Real Traders. <span>Real Experiences.</span>
-          </h2>
+            <h2>
+              Real Traders. <span>Real Experiences.</span>
+            </h2>
 
-          <p>
-            Hear from traders who are building a more structured,
-            disciplined and informed approach to the markets.
-          </p>
+            <p>
+              Hear from traders who are building a more structured,
+              disciplined and informed approach to the markets.
+            </p>
+          </div>
+
+          <div className="testimonials-carousel">
+
+            <button
+              className="testimonial-arrow testimonial-arrow-left"
+              onClick={previousSet}
+              aria-label="Previous testimonials"
+            >
+              ‹
+            </button>
+
+            <div className="testimonial-track-wrapper">
+              <div className="testimonial-track" key={currentSet}>
+
+                {testimonialSets[currentSet].map((testimonial, index) => (
+                  <div className="testimonial-card" key={index}>
+
+                    <div className="testimonial-stars">
+                      {"★".repeat(testimonial.rating)}
+                    </div>
+
+                    <p className="testimonial-text">
+                      "{testimonial.text}"
+                    </p>
+
+                    <div className="testimonial-person">
+                      <div className="testimonial-avatar">
+                        {testimonial.name.charAt(0)}
+                      </div>
+
+                      <div>
+                        <h4>{testimonial.name}</h4>
+                        <span>{testimonial.role}</span>
+                      </div>
+                    </div>
+
+                  </div>
+                ))}
+
+              </div>
+            </div>
+
+            <button
+              className="testimonial-arrow testimonial-arrow-right"
+              onClick={nextSet}
+              aria-label="Next testimonials"
+            >
+              ›
+            </button>
+
+          </div>
+
+          <div className="testimonial-dots">
+            {testimonialSets.map((_, index) => (
+              <button
+                key={index}
+                className={`testimonial-dot ${currentSet === index ? "active" : ""
+                  }`}
+                onClick={() => setCurrentSet(index)}
+                aria-label={`Show testimonial set ${index + 1}`}
+              />
+            ))}
+          </div>
+
         </div>
+      </section>
 
-        <div className="testimonials-carousel">
+      <footer className="main-footer">
+        <div className="footer-container">
 
-          <button
-            className="testimonial-arrow testimonial-arrow-left"
-            onClick={previousSet}
-            aria-label="Previous testimonials"
-          >
-            ‹
-          </button>
+          <div className="footer-top">
 
-          <div className="testimonial-track-wrapper">
-            <div className="testimonial-track" key={currentSet}>
+            {/* Brand */}
+            <div className="footer-brand">
+              <img
+                src={logo}
+                alt="Company Logo"
+                className="footer-logo"
+              />
 
-              {testimonialSets[currentSet].map((testimonial, index) => (
-                <div className="testimonial-card" key={index}>
+              <p className="footer-description">
+                Research-led market guidance, trading education and practical
+                resources for traders looking to build disciplined and informed
+                market skills.
+              </p>
+            </div>
 
-                  <div className="testimonial-stars">
-                    {"★".repeat(testimonial.rating)}
-                  </div>
+            {/* Learn */}
+            <div className="footer-column">
+              <h4>Learn</h4>
 
-                  <p className="testimonial-text">
-                    "{testimonial.text}"
-                  </p>
+              <a href="#curriculum">
+                Curriculum
+              </a>
 
-                  <div className="testimonial-person">
-                    <div className="testimonial-avatar">
-                      {testimonial.name.charAt(0)}
-                    </div>
+              <a href="#complete-package">
+                Complete Package
+              </a>
 
-                    <div>
-                      <h4>{testimonial.name}</h4>
-                      <span>{testimonial.role}</span>
-                    </div>
-                  </div>
+              <a href="#pricing">
+                Pricing
+              </a>
+            </div>
 
-                </div>
-              ))}
+            {/* Explore */}
+            <div className="footer-column">
+              <h4>Explore</h4>
+
+              <a href="#testimonials">
+                Testimonials
+              </a>
+
+              <a href="#faq">
+                FAQ
+              </a>
+
+              <a href="#next-steps">
+                Next Steps
+              </a>
+
+              <a href="#contact">
+                Contact
+              </a>
+            </div>
+
+            {/* Legal */}
+            <div className="footer-column">
+              <h4>Legal</h4>
+
+              <a
+                href="https://shenronglobal.com/legal/terms-and-conditions"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Terms & Conditions
+              </a>
+
+              <a
+                href="https://shenronglobal.com/legal/privacy-policy"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Privacy Policy
+              </a>
+
+              <a
+                href="https://shenronglobal.com/legal/risk-disclosure"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Risk Disclosure
+              </a>
+            </div>
+
+          </div>
+
+          {/* Get In Touch */}
+          <div className="footer-contact-section">
+            <h4>Get In Touch</h4>
+
+            <div className="footer-contact">
+
+              <p>
+                <span>●</span>
+                Business Centre, A3 Dubai South Business Park, Dubai, United
+                Arab Emirates
+              </p>
+
+              <p>
+                <span>✉</span>
+                support@shenronglobal.com
+              </p>
+
+              <p>
+                <span>☎</span>
+                +971565702852
+              </p>
+
+              <p>
+                <span>◷</span>
+                Mon - Fri: 9:00 AM - 6:00 PM (GST)
+              </p>
 
             </div>
           </div>
 
-          <button
-            className="testimonial-arrow testimonial-arrow-right"
-            onClick={nextSet}
-            aria-label="Next testimonials"
-          >
-            ›
-          </button>
+          {/* Risk Warning */}
+          <div className="footer-warning">
 
-        </div>
+            <p>
+              All content on this site, including market commentary, trading
+              signals, analysis, reports, webinars, tutorials and other materials,
+              is provided for educational and informational purposes only.
+            </p>
 
-        <div className="testimonial-dots">
-          {testimonialSets.map((_, index) => (
-            <button
-              key={index}
-              className={`testimonial-dot ${
-                currentSet === index ? "active" : ""
-              }`}
-              onClick={() => setCurrentSet(index)}
-              aria-label={`Show testimonial set ${index + 1}`}
-            />
-          ))}
-        </div>
+            <p>
+              Nothing on this site constitutes financial, investment, legal, tax
+              or other professional advice tailored to your personal circumstances.
+            </p>
 
-      </div>
-    </section>
+            <p>
+              Trading forex, precious metals, cryptocurrencies, indices and other
+              leveraged instruments involves significant risk and may result in
+              partial or total loss of capital.
+            </p>
 
-      <footer className="legal-footer">
-        <div className="legal-footer-container">
-          <p className="legal-disclaimer">
-            All content on this site, including market commentary, trading
-            signals, analysis, reports, webinars, tutorials and other materials,
-            is provided for educational and informational purposes only.
-          </p>
+            <p>
+              Market conditions can change rapidly, and you should never trade
+              with funds you cannot afford to lose.
+            </p>
 
-          <p className="legal-disclaimer">
-            Nothing on this site constitutes financial, investment, legal, tax or
-            other professional advice tailored to your personal circumstances.
-          </p>
+            <p>
+              Shenron makes no guarantee of profits, and past performance,
+              testimonials, case studies and examples do not predict future
+              results.
+            </p>
 
-          <p className="legal-disclaimer">
-            Trading forex, precious metals, cryptocurrencies, indices and other
-            leveraged instruments involves significant risk and may result in
-            partial or total loss of capital.
-          </p>
-
-          <p className="legal-disclaimer">
-            Market conditions can change rapidly, and you should never trade with
-            funds you cannot afford to lose.
-          </p>
-
-          <p className="legal-disclaimer">
-            No guarantee of profits is made, and past performance, testimonials,
-            case studies and examples do not predict future results.
-          </p>
-
-          <div className="legal-links">
-            <a
-              href="https://shenronglobal.com/legal/terms-and-conditions"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Terms & Conditions
-            </a>
-
-            <span>•</span>
-
-            <a
-              href="https://shenronglobal.com/legal/privacy-policy"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Privacy Policy
-            </a>
-
-            <span>•</span>
-
-            <a
-              href="https://shenronglobal.com/legal/risk-disclosure"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Risk Disclosure
-            </a>
+            <p className="footer-final-warning">
+              Shenron Global Trading involves risk. Educational content only.
+            </p>
           </div>
 
-          <p className="legal-copyright">
-            © {new Date().getFullYear()} All rights reserved.
-          </p>
+          {/* Bottom */}
+          <div className="footer-bottom">
+
+            <p>
+              © {new Date().getFullYear()} All rights reserved.
+            </p>
+
+
+
+          </div>
+
         </div>
       </footer>
 
