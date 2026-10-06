@@ -8,6 +8,7 @@ import {
   FaGraduationCap,
 } from "react-icons/fa";
 import "./ForexHero.css";
+import EnquiryForm from "./EnquiryForm";
 
 
 import heroImg1 from "../assets/heroImg1.png";
@@ -22,14 +23,16 @@ import avatar4 from "../assets/avatar4.png";
 import logo from "../assets/shenron-logo.png";
 // import videoThumbnail from "../assets/videoThumbnail.png";
 
-const ForexHero = ({ onEnquiry }) => {
-  const handleEnquiryClick = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-  
-    onEnquiry();
+const ForexHero = () => {
+  const [isEnquiryOpen, setIsEnquiryOpen] = useState(false);
+
+  const handleEnquiryClick = () => {
+    setIsEnquiryOpen(true);
   };
 
+  const closeEnquiry = () => {
+    setIsEnquiryOpen(false);
+  };
 
   const faqData = [
     {
@@ -287,6 +290,17 @@ const ForexHero = ({ onEnquiry }) => {
     return () => observer.disconnect();
   }, []);
 
+  const scrollToHome = () => {
+    const homeSection = document.getElementById("home");
+
+    if (homeSection) {
+      homeSection.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  };
+
 
 
 
@@ -381,15 +395,14 @@ const ForexHero = ({ onEnquiry }) => {
             </div>
 
 
-            {/* CTA */}
             <button
-  type="button"
-  className="forex-cta"
-  onClick={handleEnquiryClick}
->
-  <span>♙</span>
-  Lock My Seat Before It's Gone @$199
-</button>
+              type="button"
+              className="forex-cta"
+              onClick={handleEnquiryClick}
+            >
+              <span>♙</span>
+              Lock My Seat Before It's Gone @$199
+            </button>
 
           </div>
 
@@ -525,14 +538,14 @@ const ForexHero = ({ onEnquiry }) => {
 
           {/* CTA */}
           <div className="curriculum-cta-wrapper">
-          <button
-  type="button"
-  className="curriculum-cta"
-  onClick={handleEnquiryClick}
->
-  <span className="cta-icon">♙</span>
-  Reserve Your Masterclass Seat @$199
-</button>
+            <button
+              type="button"
+              className="curriculum-cta"
+              onClick={scrollToHome}
+            >
+              <span className="cta-icon">♙</span>
+              Reserve Your Masterclass Seat @$199
+            </button>
 
             <p className="curriculum-note">
               Instant access <span>•</span> Secure checkout
@@ -595,12 +608,12 @@ const ForexHero = ({ onEnquiry }) => {
                 </ul>
 
                 <button
-  type="button"
-  className="package-card-button"
-  onClick={handleEnquiryClick}
->
-  Apply Now
-</button>
+                  type="button"
+                  className="package-card-button"
+                  onClick={scrollToHome}
+                >
+                  Apply Now
+                </button>
 
               </div>
             ))}
@@ -638,12 +651,11 @@ const ForexHero = ({ onEnquiry }) => {
             <button
               type="button"
               className="package-cta"
-              onClick={onEnquiry}
+              onClick={scrollToHome}
             >
               <span>♙</span>
               Apply for Mentorship
             </button>
-
             <p className="package-note">
               Compare your options <span>•</span> Choose your track
             </p>
@@ -769,13 +781,13 @@ const ForexHero = ({ onEnquiry }) => {
           </p>
 
           <button
-  type="button"
-  className="final-cta-button"
-  onClick={handleEnquiryClick}
->
-  <span>♙</span>
-  Reserve My Seat @$199
-</button>
+            type="button"
+            className="final-cta-button"
+            onClick={scrollToHome}
+          >
+            <span>♙</span>
+            Reserve My Seat @$199
+          </button> 
 
           <div className="final-cta-benefits">
             <div className="final-benefit">
@@ -1057,6 +1069,12 @@ const ForexHero = ({ onEnquiry }) => {
 
         </div>
       </footer>
+
+      <EnquiryForm
+        isOpen={isEnquiryOpen}
+        onClose={closeEnquiry}
+      />
+
 
     </>
   );

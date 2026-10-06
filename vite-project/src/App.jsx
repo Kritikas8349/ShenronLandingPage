@@ -2,29 +2,39 @@ import React, { useState } from "react";
 
 import Navbar from "./components/Navbar";
 import ForexHero from "./components/ForexHero";
-import EnquiryModal from "./components/EnquiryModal";
+// import EnquiryModal from "./components/EnquiryModal";
 
 function App() {
-  const [enquiryOpen, setEnquiryOpen] = useState(false);
 
-  const openEnquiry = () => {
-    setEnquiryOpen(true);
-  };
 
-  const closeEnquiry = () => {
-    setEnquiryOpen(false);
-  };
 
   return (
     <>
-      <Navbar onEnquiry={openEnquiry} />
 
-      <ForexHero onEnquiry={openEnquiry} />
+      {/* ==============================
+          NAVBAR
+      =============================== */}
 
-      <EnquiryModal
-        isOpen={enquiryOpen}
-        onClose={closeEnquiry}
+      <Navbar
       />
+
+
+      {/* ==============================
+          MAIN LANDING PAGE
+      =============================== */}
+
+      <ForexHero
+      />
+
+
+      {/* ==============================
+          ENQUIRY POPUP
+      =============================== */}
+
+      {/* <EnquiryModal
+    
+      /> */}
+
     </>
   );
 }
