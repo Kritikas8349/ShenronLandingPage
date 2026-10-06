@@ -21,7 +21,7 @@ import avatar4 from "../assets/avatar4.png";
 
 
 import logo from "../assets/shenron-logo.png";
-// import videoThumbnail from "../assets/videoThumbnail.png";
+import shenronVid from "../assets/Shenron-Global-Video.mp4";
 
 const ForexHero = () => {
   const [isEnquiryOpen, setIsEnquiryOpen] = useState(false);
@@ -412,32 +412,15 @@ const ForexHero = () => {
 
             <div className="video-card">
 
-              {/* <img
-              src={videoThumbnail}
-              alt="Forex Trading Masterclass"
-              className="video-thumbnail"
-            /> */}
-
-              {/* Overlay */}
-              <div className="video-overlay"></div>
-
-
-              {/* YouTube button */}
-              <a
-                href="https://www.youtube.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="youtube-button"
-                aria-label="Watch Forex Trading Masterclass"
+              <video
+                src={shenronVid}
+                className="video-thumbnail"
+                controls
+                playsInline
+                preload="metadata"
               >
-                <span></span>
-              </a>
-
-
-              {/* YouTube text */}
-              <div className="watch-youtube">
-                Watch on <strong>▶ YouTube</strong>
-              </div>
+                Your browser does not support the video tag.
+              </video>
 
             </div>
 
@@ -787,7 +770,7 @@ const ForexHero = () => {
           >
             <span>♙</span>
             Reserve My Seat @$199
-          </button> 
+          </button>
 
           <div className="final-cta-benefits">
             <div className="final-benefit">
@@ -933,9 +916,7 @@ const ForexHero = () => {
                 Complete Package
               </a>
 
-              <a href="#pricing">
-                Pricing
-              </a>
+
             </div>
 
             {/* Explore */}
@@ -950,13 +931,6 @@ const ForexHero = () => {
                 FAQ
               </a>
 
-              <a href="#next-steps">
-                Next Steps
-              </a>
-
-              <a href="#contact">
-                Contact
-              </a>
             </div>
 
             {/* Legal */}
@@ -1004,7 +978,7 @@ const ForexHero = () => {
 
               <p>
                 <span>✉</span>
-                support@shenronglobal.com
+                enquiry@shenronglobal.com
               </p>
 
               <p>
